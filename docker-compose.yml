@@ -1,0 +1,13 @@
+services:
+  docspace:
+    image: onlyoffice/documentserver:9.2
+    volumes:
+      - docspace:/var/log/onlyoffice # for ONLYOFFICE Docs logs
+      - docspace:/var/www/onlyoffice/Data # for certificates
+      - docspace:/var/lib/onlyoffice # for file cache
+      - docspace:/var/lib/postgresql # for database
+    ports:
+      - "80:80"
+
+volumes:
+  docspace:
