@@ -9,5 +9,18 @@ services:
     ports:
       - "80:80"
 
+  web:
+    build:
+      context: ./doc-viewer-poc
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - docspace
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+
 volumes:
   docspace:
