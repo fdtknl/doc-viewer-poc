@@ -1,26 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export const useLocalStorageArray = <T>(storageKey: string) => {
-    const [storageState, setStorageState] = useState<Array<T>>();
-
-    useEffect(() => {
+export const useLocalStorage = <T>(storageKey: string) => {
+    const [storageState, setStorageState] = useState<T | undefined>(() => {
         try {
+            console.log('Getting local storage item', storageKey);
             const storageString = localStorage.getItem(storageKey);
-            if (!storageString || storageString === undefined) {
-                setStorageState([]);
-            } else {
+            console.log('storageString', storageString);
+            if (storageString) {
                 const storageObj = JSON.parse(storageString);
-                if (Array.isArray(storageObj)) {
-                    setStorageState(storageObj)
-                } else {
-                    console.error('Could not parse stored array', storageKey, storageString);
-                }
+                return storageObj;
             }
         } catch (err) {
-            console.error(err);
-            setStorageState([]);
+            console.error("Error in useLocalStorage init", storageKey, err);
+            return undefined
         }
-    }, []);
+
+    });
 
     useEffect(() => {
         localStorage.setItem(storageKey, JSON.stringify(storageState));

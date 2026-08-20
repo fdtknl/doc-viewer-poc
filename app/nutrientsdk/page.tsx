@@ -1,12 +1,13 @@
 // Only render the SDK on the client side.
 "use client";
 
-import { useLocalStorageArray } from "@/utils/local-storage.utils";
+import { useLocalStorage } from "@/utils/local-storage.utils";
+import { InstantJSON } from "@nutrient-sdk/viewer";
 import React, { useEffect, useRef } from "react";
 
 export default function nutrientSdk() {
     const containerRef = useRef(null);
-    const [localStorageArray, setLocalStorageArray] = useLocalStorageArray('nutrientsdk');
+    const [localStorage, setLocalStorage] = useLocalStorage<InstantJSON>('nutrientsdk');
 
     useEffect(() => {
         const container = containerRef.current;
@@ -24,26 +25,13 @@ export default function nutrientSdk() {
                     useCDN: true,
                     document:
                         "Hello World.pdf",
+                    instantJSON: localStorage
                 }).then(async (instance) => {
-                    instance.addEventListener("annotations.load", loadedAnnotations => {
-                        console.log("annotations.load", loadedAnnotations);
-                    });
-                    instance.addEventListener("annotations.willChange", event => {
-                        if (event.reason === NutrientViewer.AnnotationsWillChangeReason.DRAW_START) {
-                            console.log("The user is drawing...");
-                        }
-                    });
-                    instance.addEventListener("annotations.change", () => {
-                        console.log("Something in the annotations has changed.");
-                    });
-                    instance.addEventListener("annotations.create", createdAnnotations => {
+                    instance.addEventListener("annotations.create", async createdAnnotations => {
                         console.log("annotations.create", createdAnnotations, instance.annotations);
-                    });
-                    instance.addEventListener("annotations.update", updatedAnnotations => {
-                        console.log("annotations.update", updatedAnnotations);
-                    });
-                    instance.addEventListener("annotations.delete", deletedAnnotations => {
-                        console.log("annotations.delete", deletedAnnotations);
+                        const exportedInstantJson = await instance.exportInstantJSON();
+                        console.log("exportedInstantJson", exportedInstantJson)
+                        setLocalStorage(exportedInstantJson);
                     });
                 });
             }
