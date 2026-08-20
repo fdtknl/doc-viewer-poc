@@ -33,6 +33,21 @@ export default function nutrientSdk() {
                         console.log("exportedInstantJson", exportedInstantJson)
                         setLocalStorage(exportedInstantJson);
                     });
+                    instance.addEventListener("annotations.update", async updatedAnnotations => {
+                        console.log("annotations.update", updatedAnnotations);
+                    });
+                    instance.addEventListener("annotations.delete", async deletedAnnotations => {
+                        console.log("annotations.update", deletedAnnotations);
+                    });
+                    instance.addEventListener("comments.create", async createdComments => {
+                        console.log("comments.create", createdComments);
+                    });
+                    instance.addEventListener("comments.update", async updatedComments => {
+                        console.log("comments.update", updatedComments);
+                    });
+                    instance.addEventListener("comments.delete", async deletedComments => {
+                        console.log("comments.update", deletedComments);
+                    });
                 });
             }
 
