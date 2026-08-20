@@ -26,9 +26,12 @@ This PoC disables OnlyOffice JWT authentication in Docker. Do not use that
 setting for a production deployment; production should use a server-side JWT
 signing flow instead of exposing a secret in the browser.
 
+The PoC also allows OnlyOffice to download the document from the private Docker
+network. Keep this disabled in production unless the internal URL is trusted.
+
 ```bash
 export NEXT_PUBLIC_ONLYOFFICE_URL="https://<codespace>-80.app.github.dev/"
-export NEXT_PUBLIC_DOCUMENT_URL="https://<codespace>-3000.app.github.dev/Hello%20World.pdf"
+export NEXT_PUBLIC_DOCUMENT_URL="http://web:3000/Hello%20World.pdf"
 docker compose up --build
 ```
 
@@ -37,8 +40,9 @@ Open the forwarded port `3000` URL for the web app. Set forwarded port `80` to
 `401` to the DocsAPI script because the OnlyOffice iframe cannot pass the
 Codespaces authentication challenge.
 
-The document URL must also be publicly reachable because OnlyOffice fetches it
-from the document server. For local development, omit both variables.
+The document URL uses the Docker service name so OnlyOffice can fetch it
+directly from the `web` container. Only the DocsAPI port must be public. For
+local development outside Docker, use `http://localhost:3000/Hello%20World.pdf`.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

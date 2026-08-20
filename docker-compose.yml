@@ -3,11 +3,12 @@ services:
     image: onlyoffice/documentserver:9.2
     environment:
       JWT_ENABLED: "false"
+      ALLOW_PRIVATE_IP_ADDRESS: "true"
     volumes:
-      - docspace:/var/log/onlyoffice # for ONLYOFFICE Docs logs
-      - docspace:/var/www/onlyoffice/Data # for certificates
-      - docspace:/var/lib/onlyoffice # for file cache
-      - docspace:/var/lib/postgresql # for database
+      - docspace-logs:/var/log/onlyoffice
+      - docspace-data:/var/www/onlyoffice/Data
+      - docspace-lib:/var/lib/onlyoffice
+      - docspace-postgresql:/var/lib/postgresql
     ports:
       - "80:80"
 
@@ -27,4 +28,7 @@ services:
       HOSTNAME: 0.0.0.0
 
 volumes:
-  docspace:
+  docspace-logs:
+  docspace-data:
+  docspace-lib:
+  docspace-postgresql:

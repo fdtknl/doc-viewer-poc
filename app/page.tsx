@@ -1,7 +1,12 @@
 export default function App() {
   return (
-    <div>
-      <a href="/onlyoffice">Open OnlyOffice PoC</a>
-    </div>
+    <ul>
+      <li>
+        <a href="/onlyoffice">Open OnlyOffice PoC</a>
+      </li>
+      <li>
+        <a href="/nutrientsdk">Open Nutrient SDK PoC</a>
+      </li>
+    </ul>
   )
 }
