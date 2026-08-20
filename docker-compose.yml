@@ -1,6 +1,8 @@
 services:
   docspace:
     image: onlyoffice/documentserver:9.2
+    environment:
+      JWT_ENABLED: "false"
     volumes:
       - docspace:/var/log/onlyoffice # for ONLYOFFICE Docs logs
       - docspace:/var/www/onlyoffice/Data # for certificates

@@ -22,6 +22,10 @@ The OnlyOffice editor loads its DocsAPI in the browser, so `localhost:80` refers
 to the browser's machine, not the Docker container. Forward port `80` in the
 Codespaces **Ports** tab and set the resulting HTTPS URL before building:
 
+This PoC disables OnlyOffice JWT authentication in Docker. Do not use that
+setting for a production deployment; production should use a server-side JWT
+signing flow instead of exposing a secret in the browser.
+
 ```bash
 export NEXT_PUBLIC_ONLYOFFICE_URL="https://<codespace>-80.app.github.dev/"
 export NEXT_PUBLIC_DOCUMENT_URL="https://<codespace>-3000.app.github.dev/Hello%20World.pdf"
