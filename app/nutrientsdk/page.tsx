@@ -26,7 +26,7 @@ export default function nutrientSdk() {
                         "Hello World.pdf",
                 }).then(async (instance) => {
                     instance.addEventListener("annotations.load", loadedAnnotations => {
-                        console.log(loadedAnnotations);
+                        console.log("annotations.load", loadedAnnotations);
                     });
                     instance.addEventListener("annotations.willChange", event => {
                         if (event.reason === NutrientViewer.AnnotationsWillChangeReason.DRAW_START) {
@@ -37,13 +37,13 @@ export default function nutrientSdk() {
                         console.log("Something in the annotations has changed.");
                     });
                     instance.addEventListener("annotations.create", createdAnnotations => {
-                        console.log(createdAnnotations);
+                        console.log("annotations.create", createdAnnotations, instance.annotations);
                     });
                     instance.addEventListener("annotations.update", updatedAnnotations => {
-                        console.log(updatedAnnotations);
+                        console.log("annotations.update", updatedAnnotations);
                     });
                     instance.addEventListener("annotations.delete", deletedAnnotations => {
-                        console.log(deletedAnnotations);
+                        console.log("annotations.delete", deletedAnnotations);
                     });
                 });
             }

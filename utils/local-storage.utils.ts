@@ -4,16 +4,21 @@ export const useLocalStorageArray = <T>(storageKey: string) => {
     const [storageState, setStorageState] = useState<Array<T>>();
 
     useEffect(() => {
-        const storageString = localStorage.getItem(storageKey);
-        if (!storageString) {
-            setStorageState([]);
-        } else {
-            const storageObj = JSON.parse(storageString);
-            if (Array.isArray(storageObj)) {
-                setStorageState(storageObj)
+        try {
+            const storageString = localStorage.getItem(storageKey);
+            if (!storageString || storageString === undefined) {
+                setStorageState([]);
             } else {
-                console.error('Could not parse stored array', storageKey, storageString);
+                const storageObj = JSON.parse(storageString);
+                if (Array.isArray(storageObj)) {
+                    setStorageState(storageObj)
+                } else {
+                    console.error('Could not parse stored array', storageKey, storageString);
+                }
             }
+        } catch (err) {
+            console.error(err);
+            setStorageState([]);
         }
     }, []);
 
