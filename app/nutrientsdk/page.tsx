@@ -35,18 +35,33 @@ export default function nutrientSdk() {
                     });
                     instance.addEventListener("annotations.update", async updatedAnnotations => {
                         console.log("annotations.update", updatedAnnotations);
+                        const exportedInstantJson = await instance.exportInstantJSON();
+                        console.log("exportedInstantJson", exportedInstantJson)
+                        setLocalStorage(exportedInstantJson);
                     });
                     instance.addEventListener("annotations.delete", async deletedAnnotations => {
                         console.log("annotations.update", deletedAnnotations);
+                        const exportedInstantJson = await instance.exportInstantJSON();
+                        console.log("exportedInstantJson", exportedInstantJson)
+                        setLocalStorage(exportedInstantJson);
                     });
                     instance.addEventListener("comments.create", async createdComments => {
                         console.log("comments.create", createdComments);
+                        const exportedInstantJson = await instance.exportInstantJSON();
+                        console.log("exportedInstantJson", exportedInstantJson)
+                        setLocalStorage(exportedInstantJson);
                     });
                     instance.addEventListener("comments.update", async updatedComments => {
                         console.log("comments.update", updatedComments);
+                        const exportedInstantJson = await instance.exportInstantJSON();
+                        console.log("exportedInstantJson", exportedInstantJson)
+                        setLocalStorage(exportedInstantJson);
                     });
                     instance.addEventListener("comments.delete", async deletedComments => {
                         console.log("comments.update", deletedComments);
+                        const exportedInstantJson = await instance.exportInstantJSON();
+                        console.log("exportedInstantJson", exportedInstantJson)
+                        setLocalStorage(exportedInstantJson);
                     });
                 });
             }
