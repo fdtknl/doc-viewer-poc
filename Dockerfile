@@ -10,6 +10,10 @@ RUN pnpm install --frozen-lockfile
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ARG NEXT_PUBLIC_ONLYOFFICE_URL
+ARG NEXT_PUBLIC_DOCUMENT_URL
+ENV NEXT_PUBLIC_ONLYOFFICE_URL=$NEXT_PUBLIC_ONLYOFFICE_URL
+ENV NEXT_PUBLIC_DOCUMENT_URL=$NEXT_PUBLIC_DOCUMENT_URL
 RUN pnpm run build
 
 FROM node:20-alpine AS runner

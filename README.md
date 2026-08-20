@@ -16,6 +16,26 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### OnlyOffice in GitHub Codespaces
+
+The OnlyOffice editor loads its DocsAPI in the browser, so `localhost:80` refers
+to the browser's machine, not the Docker container. Forward port `80` in the
+Codespaces **Ports** tab and set the resulting HTTPS URL before building:
+
+```bash
+export NEXT_PUBLIC_ONLYOFFICE_URL="https://<codespace>-80.app.github.dev/"
+export NEXT_PUBLIC_DOCUMENT_URL="https://<codespace>-3000.app.github.dev/Hello%20World.pdf"
+docker compose up --build
+```
+
+Open the forwarded port `3000` URL for the web app. Set forwarded port `80` to
+**Public** before opening the editor. A private Codespaces tunnel returns
+`401` to the DocsAPI script because the OnlyOffice iframe cannot pass the
+Codespaces authentication challenge.
+
+The document URL must also be publicly reachable because OnlyOffice fetches it
+from the document server. For local development, omit both variables.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

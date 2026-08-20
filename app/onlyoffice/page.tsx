@@ -1,12 +1,15 @@
+"use client";
 // https://api.onlyoffice.com/docs/docs-api/get-started/frontend-frameworks/react/
 import {DocumentEditor} from "@onlyoffice/document-editor-react";
-import React, {useRef} from "react";
 
-function onDocumentReady(event) {
+const documentServerUrl = process.env.NEXT_PUBLIC_ONLYOFFICE_URL ?? "http://localhost:80/";
+const documentUrl = process.env.NEXT_PUBLIC_DOCUMENT_URL ?? "http://localhost:3000/Hello%20World.pdf";
+
+function onDocumentReady(event: object) {
   console.log("Document is loaded");
 }
 
-function onLoadComponentError(errorCode, errorDescription) {
+function onLoadComponentError(errorCode: number, errorDescription: string) {
   switch (errorCode) {
   case -1: // Unknown error loading component
     console.log(errorDescription);
@@ -26,18 +29,18 @@ export default function OnlyOffice() {
   return (
     <DocumentEditor
       id="docxEditor"
-      documentServerUrl="http://localhost:80/"
+      documentServerUrl={documentServerUrl}
       config={{
         document: {
-          fileType: "docx",
+          fileType: "pdf",
           key: "Khirz6zTPdfd7",
-          title: "Example Document Title.docx",
-          url: "https://example.com/url-to-example-document.docx",
+          title: "Hello World.pdf",
+          url: documentUrl,
         },
-        documentType: "word",
-        editorConfig: {
-          callbackUrl: "https://example.com/url-to-callback",
-        },
+        documentType: "pdf",
+        // editorConfig: {
+        //   callbackUrl: "https://example.com/url-to-callback",
+        // },
       }}
       events_onDocumentReady={onDocumentReady}
       onLoadComponentError={onLoadComponentError}
