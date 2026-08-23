@@ -7,6 +7,9 @@ export default function App() {
       <li>
         <a href="/nutrientsdk">Open Nutrient SDK PoC</a>
       </li>
+      <li>
+        <a href="/apryse">Open Apryse PoC</a>
+      </li>
     </ul>
   )
 }
