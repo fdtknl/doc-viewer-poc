@@ -2,10 +2,9 @@
 "use client";
 
 import { useLocalStorage } from "@/utils/local-storage.utils";
-import { InstantJSON } from "@nutrient-sdk/viewer";
 import React, { useEffect, useRef } from "react";
 
-export default function nutrientSdk() {
+export default function NutrientSdk() {
     const containerRef = useRef(null);
     const [localStorage, setLocalStorage] = useLocalStorage<string>('nutrientsdk_xfdf_docx');
 
@@ -23,8 +22,7 @@ export default function nutrientSdk() {
                 NutrientViewer.load({
                     container,
                     useCDN: true,
-                    document:
-                        "Hello world.docx",
+                    document: "/Hello%20world.docx",
                     XFDF: localStorage,
                     // instantJSON: localStorage
                 }).then(async (instance) => {
@@ -64,6 +62,8 @@ export default function nutrientSdk() {
                         console.log("exportedXfdf", exportedXfdf)
                         setLocalStorage(exportedXfdf);
                     });
+                }).catch((error) => {
+                    console.error("Failed to load the DOCX document", error);
                 });
             }
 

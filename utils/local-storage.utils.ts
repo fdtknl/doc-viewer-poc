@@ -22,5 +22,5 @@ export const useLocalStorage = <T>(storageKey: string) => {
     }, [storageState]);
 
 
-    return [storageState, setStorageState]
+    return [storageState, setStorageState];
 }
