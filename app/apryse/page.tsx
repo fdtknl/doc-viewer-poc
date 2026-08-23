@@ -9,7 +9,7 @@ import { useEffect, useRef } from 'react';
 
 export default function WebViewer() {
     // Create a ref to hold div where WebViewer is mounted
-    const viewer = useRef(null);
+    const viewer = useRef<HTMLDivElement>(null);
     const [localStorage, setLocalStorage] = useLocalStorage<string>('apryse_xfdf');
 
     // Run once after the component is mounted
@@ -18,6 +18,11 @@ export default function WebViewer() {
         import('@pdftron/webviewer').then((module) => {
             // Access the default export from the module
             const WebViewer = module.default;
+            const viewerElement = viewer.current;
+
+            if (!viewerElement) {
+                return;
+            }
 
             // Initialize WebViewer
             WebViewer(
@@ -28,11 +33,11 @@ export default function WebViewer() {
                     // Replace with your Apryse license key
                     licenseKey: process.env.APRYSE_LICENSE_KEY,
                     // Initial document to load into the viewer
-                    initialDoc: 'https://apryse.s3.amazonaws.com/public/files/samples/WebviewerDemoDoc.pdf',
+                    initialDoc: '/Hello%20World.pdf',
                     documentXFDFRetriever: () => new Promise((resolve) => resolve(localStorage ?? '')),
                 },
                 // DOM element where WebViewer will be rendered
-                viewer.current,
+                viewerElement,
             ).then((instance) => {
                 // Destructure the documentViewer from the Core API
                 const { documentViewer, annotationManager } = instance.Core;
