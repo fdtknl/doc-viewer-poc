@@ -28,6 +28,7 @@ export default function nutrientSdk() {
                     XFDF: localStorage,
                     // instantJSON: localStorage
                 }).then(async (instance) => {
+                    instance.setAnnotationCreatorName("Luke Skywalker")
                     instance.addEventListener("annotations.create", async createdAnnotations => {
                         console.log("annotations.create", createdAnnotations, instance.annotations);
                         const exportedXfdf = await instance.exportXFDF();
