@@ -40,14 +40,15 @@ export default function WebViewer() {
                     console.log('imported', imported);
                     console.log('annotations', annotations);
                     console.log('action', action)
-                    console.log('xfdf string', await annotationManager.exportAnnotations())
 
                     // imported indicates if the annotations were imported via a process, mainly XFDF
                     if (imported) {
                         return;
                     }
                     // do event handling
-                    setLocalStorage(await annotationManager.exportAnnotations());
+                    const xfdf = await annotationManager.exportAnnotations()
+                    console.log('xfdf', xfdf)
+                    setLocalStorage(xfdf);
                 });
                 // WebViewer APIs can now be used here
                 // Example: documentViewer.addEventListener(...)
