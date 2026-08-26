@@ -20,7 +20,8 @@ export default function NutrientSdk() {
             NutrientViewer.unload(container);
 
             if (container && NutrientViewer) {
-                NutrientViewer.load(setupNutrientConfig(container, "/Hello%20world.docx", localStorage)).then(async (instance) => {
+                NutrientViewer.load(setupNutrientConfig(container, "/Hello%20world.docx", localStorage))
+                .then(async (instance) => {
                     setupNutrientInstance(instance, setLocalStorage);
                 }).catch((error) => {
                     console.error("Failed to load the DOCX document", error);
