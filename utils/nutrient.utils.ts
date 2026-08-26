@@ -1,12 +1,12 @@
-import { Instance } from "@nutrient-sdk/viewer";
+import { Configuration, Instance } from "@nutrient-sdk/viewer";
 
-const disabledItems = ['print'];
+const disabledToolbarItems = ['print'];
 
 export const setupNutrientInstance = (instance: Instance, setLocalStorage: React.Dispatch<React.SetStateAction<string | undefined>>) => {
 
     const toolbarItems = instance.toolbarItems;
     console.log(toolbarItems);
-    instance.setToolbarItems(toolbarItems.filter((item) => !disabledItems.includes(item.type)));
+    instance.setToolbarItems(toolbarItems.filter((item) => !disabledToolbarItems.includes(item.type)));
 
     instance.setAnnotationCreatorName("Luke Skywalker")
     instance.addEventListener("annotations.create", async createdAnnotations => {
@@ -33,4 +33,18 @@ export const setupNutrientInstance = (instance: Instance, setLocalStorage: React
         const exportedXfdf = await instance.exportXFDF();
         setLocalStorage(exportedXfdf);
     });
+}
+
+
+export const setupNutrientConfig = (container: string | HTMLElement | Instance | null, documentUri: string, xfdf?: string) => {
+    return {
+        container,
+        useCDN: true,
+        document: documentUri,
+        XFDF: xfdf,
+        mentionableUsers: [
+            { id: '1', name: 'Han Solo', displayName: 'NotChewie', description: 'han_solo@12parsecs.com' },
+            { id: '2', name: 'Darth Vader', displayName: 'YourFather', description: 'darth.vader@empire.gov' }
+        ]
+    } as Configuration
 }

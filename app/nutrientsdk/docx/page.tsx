@@ -2,7 +2,7 @@
 "use client";
 
 import { useLocalStorage } from "@/utils/local-storage.utils";
-import { setupNutrientInstance } from "@/utils/nutrient.utils";
+import { setupNutrientConfig, setupNutrientInstance } from "@/utils/nutrient.utils";
 import React, { useEffect, useRef } from "react";
 
 export default function NutrientSdk() {
@@ -20,13 +20,7 @@ export default function NutrientSdk() {
             NutrientViewer.unload(container);
 
             if (container && NutrientViewer) {
-                NutrientViewer.load({
-                    container,
-                    useCDN: true,
-                    document: "/Hello%20world.docx",
-                    XFDF: localStorage,
-                    // instantJSON: localStorage
-                }).then(async (instance) => {
+                NutrientViewer.load(setupNutrientConfig(container, "/Hello%20world.docx", localStorage)).then(async (instance) => {
                     setupNutrientInstance(instance, setLocalStorage);
                 }).catch((error) => {
                     console.error("Failed to load the DOCX document", error);
@@ -39,7 +33,7 @@ export default function NutrientSdk() {
         })();
 
         return cleanup;
-    }, []);
+    }, [localStorage]);
 
 
     // You must set the container height and width.
