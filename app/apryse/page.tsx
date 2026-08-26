@@ -61,7 +61,7 @@ export default function WebViewer() {
         });
 
         // Empty dependency array ensures this runs once
-    }, []);
+    }, [localStorage]);
 
     // Render the container that WebViewer mounts into
     return (

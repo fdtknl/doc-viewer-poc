@@ -2,6 +2,7 @@
 "use client";
 
 import { useLocalStorage } from "@/utils/local-storage.utils";
+import { setupNutrientInstance } from "@/utils/nutrient.utils";
 import { InstantJSON } from "@nutrient-sdk/viewer";
 import React, { useEffect, useRef } from "react";
 
@@ -28,43 +29,7 @@ export default function nutrientSdk() {
                     XFDF: localStorage,
                     // instantJSON: localStorage
                 }).then(async (instance) => {
-                    instance.setAnnotationCreatorName("Luke Skywalker")
-                    instance.addEventListener("annotations.create", async createdAnnotations => {
-                        console.log("annotations.create", createdAnnotations, instance.annotations);
-                        const exportedXfdf = await instance.exportXFDF();
-                        console.log("exportedXfdf", exportedXfdf)
-                        setLocalStorage(exportedXfdf);
-                    });
-                    instance.addEventListener("annotations.update", async updatedAnnotations => {
-                        console.log("annotations.update", updatedAnnotations);
-                        const exportedXfdf = await instance.exportXFDF();
-                        console.log("exportedXfdf", exportedXfdf)
-                        setLocalStorage(exportedXfdf);
-                    });
-                    instance.addEventListener("annotations.delete", async deletedAnnotations => {
-                        console.log("annotations.update", deletedAnnotations);
-                        const exportedXfdf = await instance.exportXFDF();
-                        console.log("exportedXfdf", exportedXfdf)
-                        setLocalStorage(exportedXfdf);
-                    });
-                    instance.addEventListener("comments.create", async createdComments => {
-                        console.log("comments.create", createdComments);
-                        const exportedXfdf = await instance.exportXFDF();
-                        console.log("exportedXfdf", exportedXfdf)
-                        setLocalStorage(exportedXfdf);
-                    });
-                    instance.addEventListener("comments.update", async updatedComments => {
-                        console.log("comments.update", updatedComments);
-                        const exportedXfdf = await instance.exportXFDF();
-                        console.log("exportedXfdf", exportedXfdf)
-                        setLocalStorage(exportedXfdf);
-                    });
-                    instance.addEventListener("comments.delete", async deletedComments => {
-                        console.log("comments.update", deletedComments);
-                        const exportedXfdf = await instance.exportXFDF();
-                        console.log("exportedXfdf", exportedXfdf)
-                        setLocalStorage(exportedXfdf);
-                    });
+                    setupNutrientInstance(instance, setLocalStorage);
                 });
             }
 

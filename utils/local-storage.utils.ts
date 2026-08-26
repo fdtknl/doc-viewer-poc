@@ -9,9 +9,7 @@ export const useLocalStorage = <T>(
                 return undefined;
             }
 
-            console.log('Getting local storage item', storageKey);
             const storageString = window.localStorage.getItem(storageKey);
-            console.log('storageString', storageString);
             if (storageString) {
                 const storageObj = JSON.parse(storageString);
                 return storageObj;
