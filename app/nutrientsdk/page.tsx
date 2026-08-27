@@ -33,7 +33,7 @@ export default function nutrientSdk() {
         })();
 
         return cleanup;
-    }, [localStorage]);
+    }, []);
 
 
     // You must set the container height and width.
