@@ -2,6 +2,9 @@ export default function App() {
   return (
     <ul>
       <li>
+        <a href="/embedpdf">Open embedpdf PoC</a>
+      </li>
+      <li>
         <a href="/onlyoffice">Open OnlyOffice PoC</a>
       </li>
       <li>
